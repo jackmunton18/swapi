@@ -18,31 +18,34 @@ export default function App() {
   };
 
   const processData = (data) => {
+    const dataSize = Object.keys(data).length;
+    const arr = [];
 
-      switch (category) {
-        default:        
-            <>
-              <p>No data passed to be processed.</p>
-            </>        
-          break;
-        case 'people':   
-          return (
-            <>
-              <p>Name: {data.name}</p>
-              <p>Gender: {data.gender}</p>
-              <p>Height: {data.height}</p>
-              <p>Mass: {data.mass}</p>
-              <p>Hair colour: {data.hair_color}</p>
-              <p>Skin colour: {data.skin_color}</p>
-              <p>Eye colour: {data.eye_color}</p>
-              <p>Birth year: {data.birth_year}</p>
-            </>  
-          )  
-        case 'films':
-          break;
-      }
+    for (let i = 0; i < dataSize; i++) {
+      let key = Object.keys(data)[i],
+          val =  data[key],
+          isArray = Array.isArray(val);
+          arr.push({
+            "key": key, 
+            "val": val, 
+            "isArray": isArray
+          })        
+    }
 
-
+    return (
+      <>
+        {
+          arr.map((item, idx) => (              
+            
+            <p key={idx}>
+              {
+                `${item.key}: ${item.val}`
+              }
+            </p>
+          ))
+        }
+      </>
+    )
   }
 
   // Get SWAPI data for full category
